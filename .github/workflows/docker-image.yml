@@ -26,13 +26,13 @@ jobs:
       run:  source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk version
 
     - name: Install java
-      run: sdk install java 21-graalce
+      run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk install java 21-graalce
 
     - name: Check java
       run: java -version
 
     - name: Install gradle
-      run: sdk install gradle 8.3
+      run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk install gradle 8.3
 
     - name: Check gradle
       run: gradle --version
