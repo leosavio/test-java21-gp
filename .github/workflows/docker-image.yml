@@ -18,7 +18,6 @@ jobs:
     - name: Install sdk man
       run: curl -s "https://get.sdkman.io" | bash
 
-
     - name: Activate sdk
       run: source "/home/runner/.sdkman/bin/sdkman-init.sh"
 
@@ -43,7 +42,7 @@ jobs:
       run: gradle --version
 
     - name: Build Native
-      run: ./gradlew nativeCompile
+      run: gradle nativeCompile
       
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag demoj21:latest
