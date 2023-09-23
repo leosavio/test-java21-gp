@@ -1,4 +1,4 @@
-FROM ghcr.io/graalvm/jdk-community:21.0.0 as builder
+FROM FROM debian:9.5-slim as builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 # For SDKMAN to work we need unzip & zip
-RUN microdnf install -y unzip zip
+RUN apt install -y unzip zip
 
 # Install SDKMAN
 RUN curl -s "https://get.sdkman.io" | bash
@@ -16,19 +16,7 @@ RUN sdk version
 
 RUN sdk install gradle 8.3
 
-RUN gu install native-image
-
-
-
-
-
-
-
-
-
 RUN gradle --version
-
-RUN native-image --version
 
 RUN ./gradlew nativeCompile
 
