@@ -23,7 +23,7 @@ jobs:
       run: source "/home/runner/.sdkman/bin/sdkman-init.sh"
 
     - name: Check sdk
-      run: sdk version
+      run:  source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk version
 
     - name: Install java
       run: sdk install java 21-graalce
