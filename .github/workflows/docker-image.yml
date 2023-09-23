@@ -13,7 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - uses: actions/checkout@v3
+    - name: Install sdk man
+      run: curl -s "https://get.sdkman.io" | bash
+
+    - name: Check sdk
+      run: sdk version
+
+    - name: Install java
+      run: sdk install java 21-graalce
+
+    - name: Check java
+      run: java -version
+
+    - name: Install gradle
+      run: sdk install gradle 8.3
+
+    - name: Check gradle
+      run: gradle --version
+
+    - name: Build Native
+      run: ./gradlew nativeCompile
+      
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag demoj21:latest
 
