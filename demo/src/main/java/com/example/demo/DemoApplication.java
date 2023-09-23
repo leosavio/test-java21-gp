@@ -9,7 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.Set;
 
+import java.util.concurrent.Executors;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.core.task.support.TaskExecutorAdapter;
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
+import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+
 @SpringBootApplication
+@EnableAsync
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -33,6 +43,18 @@ class CustomersHttpController {
     }
 
     record Customer(Integer id, String name) {
+    }
+
+    @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
+    public AsyncTaskExecutor asyncTaskExecutor() {
+        return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+    }
+
+    @Bean
+    public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
+        return protocolHandler -> {
+            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+        };
     }
 
 }
