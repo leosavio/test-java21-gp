@@ -1,5 +1,5 @@
 # Use a lightweight distroless base image for running the application
-FROM gcr.io/distroless/cc-debian12
+FROM oraclelinux:8-slim
 
 # Copy the native binary from the GraalVM image
 COPY ./build/native/nativeCompile/demo /app/demoj21

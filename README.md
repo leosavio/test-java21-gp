@@ -28,3 +28,8 @@ Create secrets for login at dockerhub
 
 username: ${{ secrets.DOCKERHUB_USERNAME }}
 password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+- Apply to k8s
+```
+kubectl apply -f _deployment/demoj21.yaml
+```
