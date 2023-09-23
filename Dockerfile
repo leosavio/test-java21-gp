@@ -12,9 +12,9 @@ RUN microdnf install -y unzip zip
 # Install SDKMAN
 RUN curl -s "https://get.sdkman.io" | bash
 
-RUN /bin/bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk version"
+RUN sdk version
 
-RUN /bin/bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle 8.3"
+RUN sdk install gradle 8.3
 
 RUN gu install native-image
 
@@ -26,11 +26,11 @@ RUN gu install native-image
 
 
 
-RUN source "$HOME/.sdkman/bin/sdkman-init.sh" && gradle --version
+RUN gradle --version
 
 RUN native-image --version
 
-RUN source "$HOME/.sdkman/bin/sdkman-init.sh" && ./gradlew nativeCompile
+RUN ./gradlew nativeCompile
 
 # Use a lightweight distroless base image for running the application
 FROM gcr.io/distroless/cc-debian12
