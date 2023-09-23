@@ -42,7 +42,9 @@ jobs:
       run: gradle --version
 
     - name: Build Native
-      run: gradle nativeCompile
+      run: |
+        ls
+        gradle nativeCompile
       
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag demoj21:latest
