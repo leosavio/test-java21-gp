@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 # For SDKMAN to work we need unzip & zip
-RUN dnf install -y unzip zip
+#RUN dnf install -y unzip zip
 
 RUN \
     # Install SDKMAN
