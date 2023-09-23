@@ -4,7 +4,7 @@ FROM ghcr.io/graalvm/jdk-community:21.0.0 as builder
 WORKDIR /app
 
 # Install necessary utilities
-RUN yum install -y findutils
+RUN apt install -y findutils
 
 # Copy the local project files to the container
 COPY . .
