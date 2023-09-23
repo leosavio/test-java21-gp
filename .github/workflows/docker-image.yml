@@ -44,7 +44,8 @@ jobs:
     - name: Build Native
       run: |
         ls
-        gradle clean nativeCompile
+        chmod +x gradlew
+        ./gradlew clean nativeCompile
       
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag demoj21:latest
