@@ -39,12 +39,13 @@ jobs:
       run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk install gradle 8.3
 
     - name: Check gradle
-      run: gradle --version
+      run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && gradle --version
 
     - name: Build Native
       run: |
         ls
         chmod +x gradlew
+        source "/home/runner/.sdkman/bin/sdkman-init.sh"
         ./gradlew clean nativeCompile
       
     - name: Build the Docker image
