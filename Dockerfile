@@ -9,7 +9,7 @@ COPY . .
 # For SDKMAN to work we need unzip & zip
 RUN microdnf install -y unzip zip
 
-RUN set -eux \
+RUN \
     # Install SDKMAN
     curl -s "https://get.sdkman.io" | bash; \
     source "$HOME/.sdkman/bin/sdkman-init.sh"; \
