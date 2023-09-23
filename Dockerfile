@@ -1,4 +1,4 @@
-FROM FROM debian:9.5-slim as builder
+FROM debian:9.5-slim as builder
 
 # Set the working directory in the container
 WORKDIR /app
