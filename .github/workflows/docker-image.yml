@@ -18,6 +18,10 @@ jobs:
     - name: Install sdk man
       run: curl -s "https://get.sdkman.io" | bash
 
+
+    - name: Activate sdk
+      run: source "/home/runner/.sdkman/bin/sdkman-init.sh"
+
     - name: Check sdk
       run: sdk version
 
