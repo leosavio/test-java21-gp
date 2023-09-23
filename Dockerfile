@@ -9,13 +9,22 @@ COPY . .
 # For SDKMAN to work we need unzip & zip
 RUN microdnf install -y unzip zip
 
-RUN \
-    # Install SDKMAN
-    curl -s "https://get.sdkman.io" | bash; \
-    source "$HOME/.sdkman/bin/sdkman-init.sh"; \
-    sdk install gradle 8.3; \
-    # Install GraalVM Native Image
-    gu install native-image;
+# Install SDKMAN
+RUN curl -s "https://get.sdkman.io" | bash
+
+RUN /bin/bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk version"
+
+RUN /bin/bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle 8.3"
+
+RUN gu install native-image
+
+
+
+
+
+
+
+
 
 RUN source "$HOME/.sdkman/bin/sdkman-init.sh" && gradle --version
 
