@@ -35,21 +35,12 @@ jobs:
         source "$HOME/.sdkman/bin/sdkman-init.sh"
         java -version
 
-    - name: Install gradle
-      run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && sdk install gradle 8.3
-
-    - name: Check gradle
-      run: source "/home/runner/.sdkman/bin/sdkman-init.sh" && gradle --version
-
     - name: Build Native
       run: |
         ls
         chmod +x gradlew
         source "/home/runner/.sdkman/bin/sdkman-init.sh"
         ./gradlew clean nativeCompile
-      
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag demoj21:latest
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
