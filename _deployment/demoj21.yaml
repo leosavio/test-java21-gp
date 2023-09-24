@@ -51,11 +51,13 @@ metadata:
   namespace: java21
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/strip-prefix: "true"
+
 spec:
   rules:
     - http:
         paths:
-          - path: /demoj21
+          - path: /demoj21/
             pathType: Prefix
             backend:
               service:

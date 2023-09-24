@@ -33,3 +33,8 @@ password: ${{ secrets.DOCKERHUB_TOKEN }}
 ```
 kubectl apply -f _deployment/demoj21.yaml
 ```
+
+
+## Github Actions
+- For compatibility porpuses use "runs-on: ubuntu-20.04" on Github actions for native compability with oraclelinux-8-slim 
+- Required libs: GLIBC_2.32
