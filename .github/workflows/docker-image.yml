@@ -3,8 +3,12 @@ name: Docker Image CI
 on:
   push:
     branches: [ "demo_j21_graal_native_docker" ]
+    paths-ignore:
+      - '_*/**'
   pull_request:
     branches: [ "demo_j21_graal_native_docker" ]
+    paths-ignore:
+      - '_*/**'
 
 jobs:
 
