@@ -38,3 +38,11 @@ kubectl apply -f _deployment/demoj21.yaml
 ## Github Actions
 - For compatibility porpuses use "runs-on: ubuntu-20.04" on Github actions for native compability with oraclelinux-8-slim 
 - Required libs: GLIBC_2.32
+
+## Validating Health
+- Commands to check times readiness/liveness
+```
+$ kubectl exec -it podname -n namespace -- /bin/sh
+sh-4.4# curl -X POST http://localhost:8080/demoj21/actuator/shutdown
+{"message":"Shutting down, bye..."}sh-4.4# command terminated with exit code 137
+```
