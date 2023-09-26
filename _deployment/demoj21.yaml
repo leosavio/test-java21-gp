@@ -29,16 +29,16 @@ spec:
               containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
+              path: /demoj21/actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 6  # Start checking after 10 seconds
-            periodSeconds: 30  # Check every 10 seconds
+            initialDelaySeconds: 1  # Start checking after 10 seconds
+            periodSeconds: 5  # Check every 10 seconds
           readinessProbe:
             httpGet:
-              path: /actuator/health/readiness
+              path: /demoj21/actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 3  # Start checking after 5 seconds
-            periodSeconds: 30  # Check every 5 seconds
+            initialDelaySeconds: 1  # Start checking after 5 seconds
+            periodSeconds: 5  # Check every 5 seconds
 ---
 apiVersion: v1
 kind: Service
