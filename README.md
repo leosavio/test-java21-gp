@@ -12,7 +12,9 @@ java -version
 sdk use java graalvm-ce-21g
 java -version
 cd ../test-java21-gp/
+sdk install java 21-graalceY
 ./gradlew bootRun
+./gradlew bootJar
 ./gradlew nativeCompile
 ./build/native/nativeCompile/demo
 ```
@@ -45,4 +47,15 @@ kubectl apply -f _deployment/demoj21.yaml
 $ kubectl exec -it podname -n namespace -- /bin/sh
 sh-4.4# curl -X POST http://localhost:8080/demoj21/actuator/shutdown
 {"message":"Shutting down, bye..."}sh-4.4# command terminated with exit code 137
+```
+
+## Test Redis
+- Post:
+```
+curl --location --request POST 'https://HOST/demoj21/api/redis/strings' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{ "database:redis:creator": "Leonardo Savio" }'
+
+curl --location --request GET 'https://HOST/demoj21/api/redis/strings/database:redis:creator'
+
 ```
