@@ -1,4 +1,5 @@
 from locust import HttpUser, task, between
+import random
 
 class WebsiteUser(HttpUser):
     wait_time = between(1, 2.5)
@@ -9,6 +10,8 @@ class WebsiteUser(HttpUser):
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
+
+    names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hannah", "Isaac", "Jenny"]
 
     @task(1)
     def post_test(self):
@@ -21,4 +24,17 @@ class WebsiteUser(HttpUser):
             "name": "test"
         }
 
-        self.client.post("/customers", headers=self.headers, json=payload)
+        self.client.post("/demoj21/customers", headers=self.headers, json=payload)
+
+
+    @task(2)
+    def post_name_to_redis(self):
+        # Pick a random name
+        random_name = random.choice(WebsiteUser.names)
+        
+        payload = {
+            "database:redis:creator": random_name
+        }
+
+        self.client.post("/demoj21/api/redis/strings", headers=self.headers, json=payload)
+    
