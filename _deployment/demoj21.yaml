@@ -8,7 +8,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demoj21-deploy
-  namespace: java21
+  namespace: default
   labels:
     app: whoami
 spec:
@@ -39,12 +39,23 @@ spec:
               port: 8080
             initialDelaySeconds: 1  # Start checking after 5 seconds
             periodSeconds: 5  # Check every 5 seconds
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: redis-host-secret
+                  key: redis-host
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: redis-host-secret
+                  key: redis-port
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: demoj21-svc
-  namespace: java21
+  namespace: default
   labels:
     service: demoj21
 spec:
@@ -60,7 +71,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: demoj21-ingress
-  namespace: java21
+  namespace: default
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/strip-prefix: "true"

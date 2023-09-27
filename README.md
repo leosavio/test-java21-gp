@@ -68,3 +68,10 @@ root@redis-test:/data# redis-cli -h redis-host
 redis-host:6379> 
 kubectl get svc --all-namespaces | grep redis-host
 ```
+- Base64 for secrets:
+```
+echo -n "redis-host" | base64
+
+echo -n "6379" | base64
+
+```
