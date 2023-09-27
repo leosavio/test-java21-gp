@@ -52,10 +52,19 @@ sh-4.4# curl -X POST http://localhost:8080/demoj21/actuator/shutdown
 ## Test Redis
 - Post:
 ```
-curl --location --request POST 'https://HOST/demoj21/api/redis/strings' \
+curl --location --request POST 'http://k3s-04e4.java.rs/demoj21/api/redis/strings' \
   --header 'Content-Type: application/json' \
   --data-raw '{ "database:redis:creator": "Leonardo Savio" }'
 
-curl --location --request GET 'https://HOST/demoj21/api/redis/strings/database:redis:creator'
+curl --location --request GET 'http://k3s-04e4.java.rs/demoj21/api/redis/strings/database:redis:creator'
 
+```
+
+- Troubleshooting:
+- Redis:
+```
+kubectl run redis-test --rm -i --tty --image=redis:7.2.1 -- bash
+root@redis-test:/data# redis-cli -h redis-host 
+redis-host:6379> 
+kubectl get svc --all-namespaces | grep redis-host
 ```
