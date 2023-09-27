@@ -59,9 +59,10 @@ public class DemoApplication {
 	}
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, String> template = new RedisTemplate<>();
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<?, ?> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
+
         return template;
     }
 
