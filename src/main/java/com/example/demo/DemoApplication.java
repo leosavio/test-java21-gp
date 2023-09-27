@@ -40,8 +40,8 @@ public class DemoApplication {
     public void init() {
         try {
 
-            String redisHost = env.getProperty("spring.redis.host");
-            String redisPort = env.getProperty("spring.redis.port");
+            String redisHost = env.getProperty("spring.data.redis.host");
+            String redisPort = env.getProperty("spring.data.redis.port");
             
             System.out.println("Redis Host: " + redisHost);
             System.out.println("Redis Port: " + redisPort);
