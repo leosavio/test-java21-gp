@@ -75,3 +75,8 @@ echo -n "redis-host" | base64
 echo -n "6379" | base64
 
 ```
+- Simulating variables:
+```
+export REDIS_HOST=127.0.0.1
+export REDIS_PORT=1234
+```

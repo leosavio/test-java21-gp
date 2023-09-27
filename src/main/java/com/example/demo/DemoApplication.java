@@ -21,21 +21,48 @@ import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguratio
 import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
 
 @SpringBootApplication
 @EnableAsync
 public class DemoApplication {
+
+    @Autowired
+    RedisConnectionFactory connectionFactory;
+
+    @Autowired
+    private Environment env;
+
+    @PostConstruct
+    public void init() {
+        try {
+
+            String redisHost = env.getProperty("spring.redis.host");
+            String redisPort = env.getProperty("spring.redis.port");
+            
+            System.out.println("Redis Host: " + redisHost);
+            System.out.println("Redis Port: " + redisPort);
+
+            connectionFactory.getConnection();
+            System.out.println("Successfully connected to Redis");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
-      RedisTemplate<?, ?> template = new RedisTemplate<>();
-      template.setConnectionFactory(connectionFactory);
-  
-      return template;
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        return template;
     }
 
 }
