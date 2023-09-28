@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.List;
+import java.time.Duration;
+import java.util.ArrayList;
 
 import java.util.concurrent.Executors;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +49,12 @@ public class DemoApplication {
             System.out.println("Redis Host: " + redisHost);
             System.out.println("Redis Port: " + redisPort);
 
+            String javat = env.getProperty("demo.java-thread");
+            String virtualt = env.getProperty("demo.virtual-thread");
+            
+            System.out.println("Java Thread: " + javat);
+            System.out.println("Virtual Thread: " + virtualt);
+
             connectionFactory.getConnection();
             System.out.println("Successfully connected to Redis");
         } catch (Exception e) {
@@ -71,14 +80,48 @@ public class DemoApplication {
 @RestController
 class CustomersHttpController { 
 
+    @Autowired
+    private Environment env;
+
 	@PostMapping("/customers")
-    Collection<Customer> customers(Customer customers) {
+    Collection<Customer> customers(Customer customers) throws InterruptedException {
 		//System.out.println(customers.getId());
+        String javat = env.getProperty("demo.java-thread");
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(javat); i++) {
+            Thread thread = new Thread(() -> {
+                try {
+                    Thread.sleep(Duration.ofSeconds(10));
+                    
+                } catch (InterruptedException e) {
+                }
+            });
+            thread.start();
+            threads.add(thread);
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
         return Set.of(new Customer(1, "A"), new Customer(2, "B"), new Customer(3, "C"));
     }
 
     @GetMapping("/test")
-    Collection<Customer> customersTest() {
+    Collection<Customer> customersTest() throws InterruptedException {
+        String virtualt = env.getProperty("demo.virtual-thread");
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(virtualt); i++) {
+            Thread thread = Thread.startVirtualThread(() -> {
+                try {
+                    Thread.sleep(Duration.ofSeconds(10));
+                } catch (InterruptedException e) {
+                }
+            });
+            threads.add(thread);
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
         return Set.of(new Customer(1, "A"), new Customer(2, "B"), new Customer(3, "C"));
     }
 

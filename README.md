@@ -12,7 +12,7 @@ java -version
 sdk use java graalvm-ce-21g
 java -version
 cd ../test-java21-gp/
-sdk install java 21-graalceY
+sdk install java 21-graalce
 ./gradlew bootRun
 ./gradlew bootJar
 ./gradlew nativeCompile

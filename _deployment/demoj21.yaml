@@ -50,6 +50,16 @@ spec:
                 secretKeyRef:
                   name: redis-host-secret
                   key: redis-port
+            - name: java-thread
+              valueFrom:
+                secretKeyRef:
+                  name: task-secret
+                  key: java-thread
+            - name: virtual-thread
+              valueFrom:
+                secretKeyRef:
+                  name: task-secret
+                  key: virtual-thread
 ---
 apiVersion: v1
 kind: Service
